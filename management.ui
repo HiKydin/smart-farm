@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Management</class>
+ <widget class="QMainWindow" name="Management">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1335</width>
+    <height>900</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string>农场大屏 </string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>数据管理页面</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="1" column="0" colspan="6">
+         <widget class="QTableWidget" name="tableWidget"/>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="btn_outdata">
+          <property name="text">
+           <string>数据导出</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="btn_import">
+          <property name="text">
+           <string>数据导入</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QPushButton" name="btn_del">
+          <property name="text">
+           <string>删除植株</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="btn_add">
+          <property name="text">
+           <string>添加植株</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="btn_reflash">
+          <property name="text">
+           <string>数据刷新</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QPushButton" name="btn_seach">
+          <property name="text">
+           <string>搜索植株</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+       <zorder>tableWidget</zorder>
+       <zorder>btn_reflash</zorder>
+       <zorder>btn_import</zorder>
+       <zorder>btn_outdata</zorder>
+       <zorder>btn_add</zorder>
+       <zorder>btn_seach</zorder>
+       <zorder>btn_del</zorder>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>设备管理页面</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="1">
+         <layout class="QGridLayout" name="gridLayout_bar">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
+          </property>
+         </layout>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSplitter" name="splitter_7">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QTextBrowser" name="textBrowser_log"/>
+          <widget class="QWidget" name="gridLayoutWidget">
+           <layout class="QGridLayout" name="gridLayout_pie" rowstretch="0" columnstretch="0">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetFixedSize</enum>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="spacing">
+             <number>0</number>
+            </property>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QSplitter" name="splitter_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="mouseTracking">
+           <bool>true</bool>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <widget class="QPushButton" name="btn_buzzerOn">
+           <property name="text">
+            <string>开启蜂鸣器</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_buzzerOff">
+           <property name="text">
+            <string>关闭蜂鸣器</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_getStatus">
+           <property name="text">
+            <string>获取园区状态</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_saveData">
+           <property name="text">
+            <string>保存数据</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_11">
+           <property name="text">
+            <string>保留</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_12">
+           <property name="text">
+            <string>保留</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QSplitter" name="splitter">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="mouseTracking">
+           <bool>true</bool>
+          </property>
+          <property name="contextMenuPolicy">
+           <enum>Qt::DefaultContextMenu</enum>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <widget class="QPushButton" name="btn_fanOn">
+           <property name="text">
+            <string>开启排风扇</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_fanOff">
+           <property name="text">
+            <string>关闭排风扇</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_ledOn">
+           <property name="text">
+            <string>开启人工照明</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_ledOff">
+           <property name="text">
+            <string>关闭人工照明</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_pumpOn">
+           <property name="text">
+            <string>开启水泵</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_pumpOff">
+           <property name="text">
+            <string>关闭水泵</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>系统配置页面</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_sqlconfig">
+          <property name="title">
+           <string>数据库配置</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QSplitter" name="splitter_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="lbl_sql_ip">
+              <property name="text">
+               <string>主机IP地址：</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="lineEdit_sql_ip">
+              <property name="text">
+               <string>127.0.0.1</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSplitter" name="splitter_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="lbl_sql_name">
+              <property name="text">
+               <string>数据库名称：</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="lineEdit_sql_name">
+              <property name="text">
+               <string>farm_info</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSplitter" name="splitter_8">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="lbl_sql_ac">
+              <property name="text">
+               <string>账号：</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="lineEdit_sql_ac">
+              <property name="text">
+               <string>root</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSplitter" name="splitter_9">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="lbl_sql_pw">
+              <property name="text">
+               <string>密码：</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="lineEdit_sql_pw">
+              <property name="text">
+               <string>123456</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSplitter" name="splitter_10">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="label_sql_port">
+              <property name="text">
+               <string>端口号：</string>
+              </property>
+             </widget>
+             <widget class="QSpinBox" name="spinBox_sql_port">
+              <property name="specialValueText">
+               <string>3306</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSplitter" name="splitter_17">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="lbl_sql_status">
+              <property name="text">
+               <string>连接状态：</string>
+              </property>
+             </widget>
+             <widget class="QLabel" name="lbl_sql_status_photo">
+              <property name="text">
+               <string>图片</string>
+              </property>
+             </widget>
+             <widget class="QLabel" name="lbl_sql_connect_status">
+              <property name="text">
+               <string>已连接 </string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSplitter" name="splitter_18">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QPushButton" name="btn_sql_connect">
+              <property name="text">
+               <string>连接</string>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="btn_sql_disconnect">
+              <property name="text">
+               <string>断开</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QGroupBox" name="groupBox_mqttconfig">
+          <property name="title">
+           <string>MQTT配置</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="1" column="0">
+            <widget class="QSplitter" name="splitter_30">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="lbl_port">
+              <property name="text">
+               <string>端口号：</string>
+              </property>
+             </widget>
+             <widget class="QSpinBox" name="spinBox_mqtt_port">
+              <property name="specialValueText">
+               <string>51883</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QSplitter" name="splitter_35">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="lbl_publish">
+              <property name="text">
+               <string>发布主题：</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="lineEdit_mqtt_publish">
+              <property name="text">
+               <string>smart_farm_upToSub</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QSplitter" name="splitter_36">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="label_status">
+              <property name="text">
+               <string>连接状态：</string>
+              </property>
+             </widget>
+             <widget class="QLabel" name="label_status_photo">
+              <property name="text">
+               <string>图片</string>
+              </property>
+             </widget>
+             <widget class="QLabel" name="label_connect_status">
+              <property name="text">
+               <string>已连接 </string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QSplitter" name="splitter_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QPushButton" name="btn_mqtt_connect">
+              <property name="text">
+               <string>连接</string>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="btn_mqtt_disconnect">
+              <property name="text">
+               <string>断开</string>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="btn_mqtt_subscribe">
+              <property name="text">
+               <string>订阅</string>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="btn_mqtt_publish">
+              <property name="text">
+               <string>发布</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QSplitter" name="splitter_34">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="lbl_subscribe">
+              <property name="text">
+               <string>订阅主题：</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="lineEdit_mqtt_subscribe">
+              <property name="text">
+               <string>smart_farm_subToUp</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QSplitter" name="splitter_33">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="lbl_clientID">
+              <property name="text">
+               <string>ClientID：</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="lineEdit_mqtt_clientID">
+              <property name="text">
+               <string>Sever</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QSplitter" name="splitter_37">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="lbl_publish_value">
+              <property name="text">
+               <string>发布内容：</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="lineEdit_mqtt_publish_value">
+              <property name="text">
+               <string>Hallo</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QSplitter" name="splitter_19">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="lbl_ip">
+              <property name="text">
+               <string>MQTT服务器地址：</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="lineEdit_mqtt_ip">
+              <property name="text">
+               <string>t.int.rigoiot.com</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QSplitter" name="splitter_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QRadioButton" name="radioButton_qos_0">
+              <property name="text">
+               <string>QoS:0</string>
+              </property>
+             </widget>
+             <widget class="QRadioButton" name="radioButton_qos_1">
+              <property name="text">
+               <string>QoS:1</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+             <widget class="QRadioButton" name="radioButton_qos_2">
+              <property name="text">
+               <string>QoS:2</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>系统配置</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="0" column="2">
+            <widget class="QPushButton" name="pushButton_3">
+             <property name="text">
+              <string>保留</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>在线设备</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="btn_alertOff">
+             <property name="text">
+              <string>关闭自动告警</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QPushButton" name="btn_mqtt_clear">
+             <property name="text">
+              <string>清除MQTT日志</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="btn_alertOn">
+             <property name="text">
+              <string>开启自动告警</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1" colspan="2">
+            <widget class="QListWidget" name="onlineDevice"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QRadioButton" name="radioButton_all_device">
+             <property name="text">
+              <string>所有设备</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QRadioButton" name="radioButton_choose_device">
+             <property name="text">
+              <string>选中设备</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QWidget" name="widget_dev" native="true">
+             <widget class="QWidget" name="formLayoutWidget">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>203</width>
+                <height>221</height>
+               </rect>
+              </property>
+              <layout class="QFormLayout" name="formLayout_2">
+               <item row="0" column="0">
+                <widget class="QLabel" name="lbl_devIP">
+                 <property name="text">
+                  <string>设备IP：</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="lineEdit_devIP"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="lbl_devPlant">
+                 <property name="text">
+                  <string>绑定作物：</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QComboBox" name="comboBox_devPlant"/>
+               </item>
+               <item row="2" column="1">
+                <widget class="QPushButton" name="btn_devSave">
+                 <property name="text">
+                  <string>保存</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="lbl_humidity">
+                 <property name="text">
+                  <string>湿度阈值：</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QSpinBox" name="spinBox_humidity">
+                 <property name="specialValueText">
+                  <string>500</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0" colspan="2">
+                <widget class="QLabel" name="lbl_humidity_note">
+                 <property name="text">
+                  <string>注：数值越大，越干旱</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QLabel" name="lbl_gas">
+                 <property name="text">
+                  <string>可燃气阈值：</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QSpinBox" name="spinBox_gas">
+                 <property name="specialValueText">
+                  <string>210</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="0" colspan="2">
+                <widget class="QLabel" name="lbl_gas_note">
+                 <property name="text">
+                  <string>注：数值越大，可燃气浓度越高</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="0">
+                <widget class="QLabel" name="lbl_light">
+                 <property name="text">
+                  <string>光强阈值：</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="1">
+                <widget class="QSpinBox" name="spinBox_light">
+                 <property name="specialValueText">
+                  <string>350</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="0" colspan="2">
+                <widget class="QLabel" name="lbl_light_note">
+                 <property name="text">
+                  <string>注：数值越小，光照强度越高</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QGroupBox" name="groupBox_format">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>220</y>
+                <width>201</width>
+                <height>70</height>
+               </rect>
+              </property>
+              <property name="title">
+               <string>采集量格式</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_8">
+               <item row="0" column="0">
+                <widget class="QRadioButton" name="radioButton_a_mode">
+                 <property name="text">
+                  <string>模拟量模式</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QRadioButton" name="radioButton_d_mode">
+                 <property name="text">
+                  <string>数字量模式</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QTextBrowser" name="textBrowser_mqtt_log"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>监控显示页面</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="0" column="0">
+         <widget class="QLabel" name="monitor_1">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="monitor_4">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="monitor_3">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLabel" name="monitor_2">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1335</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

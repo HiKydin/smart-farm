@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>running.gif</file>
+        <file>1.png</file>
+        <file>2.png</file>
+        <file>3.png</file>
+        <file>4.png</file>
+        <file>home.png</file>
+        <file>logo.png</file>
+        <file>running.png</file>
+        <file>stop.png</file>
+        <file>noise.gif</file>
+        <file>fontawesome-webfont.ttf</file>
+        <file>background.jpg</file>
+    </qresource>
+</RCC>

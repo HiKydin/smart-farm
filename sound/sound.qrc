@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>alert.wav</file>
+        <file>click.wav</file>
+    </qresource>
+</RCC>

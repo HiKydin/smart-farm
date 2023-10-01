@@ -80,9 +80,10 @@ Management::Management(QWidget *parent) :
     //    };
     /*******************界面配置*************************/
     ui->setupUi(this);
-    this->setWindowTitle("智慧农场 - 管理界面 v0.2");
     ui->tabWidget->setTabShape(QTabWidget::Triangular);
     ui->tabWidget->setCurrentIndex(0); //设置当前活动页
+    initTray();
+    this->setWindowTitle("智慧农场 - 管理界面 v0.2");
     this->setStyleSheet("*{outline:0px;}QWidget#frmFlatUI{background:#FFFFFF;}");
     this->setFixedSize(1335, 900);
     ui->lineEdit_devIP->setDisabled(true);//禁止设备IP栏被编辑，只能通过MQTT hello包修改
@@ -477,6 +478,40 @@ Management::Management(QWidget *parent) :
     // 启动定时器，设置定时间隔为30分钟（1800000毫秒）
     timer->start(1800000);
     getValue_timer->start(1800000);
+}
+
+void Management::initTray()
+{
+    //创建托盘
+    QIcon icon = QIcon(":/img/logo.png");
+    trayIcon = new QSystemTrayIcon(this);
+    trayIcon->setIcon(icon);
+    trayIcon->setToolTip("智慧农场管理系统");
+    trayIcon->show();
+
+    //托盘事件
+    minimizeAction = new QAction("最小化",this);
+    connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
+
+    maximizeAction = new QAction("最大化",this);
+    connect(maximizeAction, SIGNAL(triggered()), this, SLOT(showNormal()));
+
+    quitAction = new QAction("退出", this);
+    connect(quitAction, &QAction::triggered, [=](){
+        //TODO关闭应用，qApp对应的是程序全局唯一指针
+        qDebug()<<"退出";
+    });
+
+    //创建托盘菜单（必须先创建动作，后添加菜单项，还可以加入菜单项图标美化）
+    trayIconMenu = new QMenu(this);
+    trayIconMenu->addAction(minimizeAction);
+    trayIconMenu->addAction(maximizeAction);
+    trayIconMenu->addSeparator();
+    trayIconMenu->addAction(quitAction);
+    trayIcon->setContextMenu(trayIconMenu);
+
+    connect(trayIcon,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+            this,SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
 }
 
 //保存条形统计图数据、设备信息数据至文件

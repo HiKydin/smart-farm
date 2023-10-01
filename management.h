@@ -15,6 +15,7 @@
 #include <QJsonParseError>
 #include <QStringListModel>
 #include <QSound>
+#include <QSystemTrayIcon>
 
 #include "barchar.h"
 #include "piechart.h"
@@ -67,6 +68,8 @@ public:
     QMap<QString, int> device_bind;
 
 private slots:
+    //init
+    void initTray();
     void on_btn_sql_connect_clicked();
     void on_btn_sql_disconnect_clicked();
     void on_btn_mqtt_connect_clicked();
@@ -106,6 +109,12 @@ private:
     QStringList ledUseList;
     QStringList pumpUseList;
     QStringList buzzerUseList;
+    QSystemTrayIcon *trayIcon;
+    QMenu *trayIconMenu;
+    //窗口管理动作
+    QAction *minimizeAction;
+    QAction *maximizeAction;
+    QAction *quitAction;
 };
 
 #endif // MANAGEMENT_H

@@ -58,7 +58,6 @@ public:
     void deletePage();
     int connectSQL();
     void connectMQTT();
-    void logread(QString msg);
     void MQTT_publish(QString value);
     QSqlDatabase db;
     QMap<int, QString> map;
@@ -115,6 +114,7 @@ private:
     QAction *minimizeAction;
     QAction *maximizeAction;
     QAction *quitAction;
+    qint32 log_level;
 };
 
 #endif // MANAGEMENT_H

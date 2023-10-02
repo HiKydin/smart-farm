@@ -49,7 +49,8 @@ SOURCES += \
     maskwidget.cpp \
     dialog_seach.cpp \
     dialog_delete.cpp \
-    barchar.cpp
+    barchar.cpp \
+    common.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -75,7 +76,8 @@ HEADERS += \
     maskwidget.h \
     dialog_seach.h \
     dialog_delete.h \
-    barchar.h
+    barchar.h \
+    common.h
 
 FORMS += \
         mainwindow.ui \

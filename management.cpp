@@ -2,6 +2,7 @@
 #include "ui_management.h"
 #include "flatui.h"
 #include "maskwidget.h"
+#include "common.h"
 /* JSON信息体定义
  * 控制类:
  * {
@@ -72,6 +73,9 @@ Management::Management(QWidget *parent) :
     map2.insert("可燃气体浓度过高",2);
     map2.insert("缺光照",3);
 
+    //初始化配置
+    log_level=INFO;
+
     // 创建下位机设备的结构体数组
     //    device_s device_status[3] = {
     //        {"Tom", 18, "Computer Science"},
@@ -110,7 +114,8 @@ Management::Management(QWidget *parent) :
 
     //获取当前时间
     QDateTime time = QDateTime::currentDateTime();
-    logread("当前时间" + time.toString("yyyy/MM/dd hh:mm:ss.zzz"));
+    QString msg = "当前时间" + time.toString("yyyy/MM/dd hh:mm:ss.zzz");
+    Common::logread(ui->textBrowser_log,log_level,msg);
 
     //显示条形统计图
     bar=new barchar();
@@ -263,11 +268,11 @@ Management::Management(QWidget *parent) :
             device_bind.insert(dev, devBind); // Insert a new key-value pair
         }
         if(devBind != 0){
-            logread("设备：" + dev + "绑定为：" + devText + "园区的下位机");
+            Common::logread(ui->textBrowser_log,log_level,"设备：" + dev + "绑定为：" + devText + "园区的下位机");
         }
         else
         {
-            logread("设备：" + dev + "已解绑");
+            Common::logread(ui->textBrowser_log,log_level,"设备：" + dev + "已解绑");
         }
         //结束，禁用按钮
         FlatUI::setPushButtonQss(ui->btn_devSave, 5, 8, "#d5d8dc", "#E6F8F5", "#2EE1C1", "#FFFFFF", "#16A086", "#A7EEE6");
@@ -374,7 +379,7 @@ Management::Management(QWidget *parent) :
         //颜色修改
         FlatUI::setPushButtonQss(ui->btn_alertOff);
         FlatUI::setPushButtonQss(ui->btn_alertOn, 5, 8, "#d5d8dc", "#E6F8F5", "#2EE1C1", "#FFFFFF", "#16A086", "#A7EEE6");
-        logread("自动告警系统已开启");
+        Common::logread(ui->textBrowser_log,log_level,"自动告警系统已开启");
     });
     connect(ui->btn_alertOff,&QPushButton::clicked,[=](){
         clickSound->play();
@@ -384,7 +389,7 @@ Management::Management(QWidget *parent) :
         //颜色修改
         FlatUI::setPushButtonQss(ui->btn_alertOn);
         FlatUI::setPushButtonQss(ui->btn_alertOff, 5, 8, "#d5d8dc", "#E6F8F5", "#2EE1C1", "#FFFFFF", "#16A086", "#A7EEE6");
-        logread("自动告警系统已关闭");
+        Common::logread(ui->textBrowser_log,log_level,"自动告警系统已关闭");
     });
 
     //开启自动告警
@@ -414,7 +419,7 @@ Management::Management(QWidget *parent) :
             file.close();
             reflashBar();
         } else {
-            logread("打开统计文件失败");
+            Common::logread(ui->textBrowser_log,log_level,"打开统计文件失败");
         }
     } else {
         //创建
@@ -429,7 +434,7 @@ Management::Management(QWidget *parent) :
             stream << "fan,0,0,0,0,0,0,0,0,0,0,0,0\nLED,0,0,0,0,0,0,0,0,0,0,0,0\npump,0,0,0,0,0,0,0,0,0,0,0,0\nbuzzer,0,0,0,0,0,0,0,0,0,0,0,0\n";
             file.close();
         } else {
-            logread("打开统计文件失败");
+            Common::logread(ui->textBrowser_log,log_level,"打开统计文件失败");
         }
     }
 
@@ -450,7 +455,7 @@ Management::Management(QWidget *parent) :
             }
             devFile.close();
         } else {
-            logread("打开设备数据失败");
+            Common::logread(ui->textBrowser_log,log_level,"打开设备数据失败");
         }
     } else {
         //创建
@@ -517,13 +522,13 @@ void Management::initTray()
 //保存条形统计图数据、设备信息数据至文件
 void Management::saveBarData()
 {
-    logread("正在保存数据,请勿关闭软件...");
+    Common::logread(ui->textBrowser_log,log_level,"正在保存数据,请勿关闭软件...");
     /*************条形统计图数据*****************/
     {
         //先清空文件内容
         QFile file("C:/Users/Administrator/Desktop/deviceUse.txt");
         if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
-            logread("打开统计文件失败");
+            Common::logread(ui->textBrowser_log,log_level,"打开统计文件失败");
             return;
         }
 
@@ -552,7 +557,7 @@ void Management::saveBarData()
         //先清空文件内容
         QFile file("C:/Users/Administrator/Desktop/deviceInfo.txt");
         if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
-            logread("打开设备信息文件失败");
+            Common::logread(ui->textBrowser_log,log_level,"打开设备信息文件失败");
             return;
         }
 
@@ -579,24 +584,17 @@ void Management::saveBarData()
         }
     }
 
-    logread("自动保存数据成功！");
+    Common::logread(ui->textBrowser_log,log_level,"自动保存数据成功！");
 }
 
 //刷新条形统计图
 void Management::reflashBar()
 {
-    logread("刷新条形统计图");
+    Common::logread(ui->textBrowser_log,log_level,"刷新条形统计图");
     bar->add_BarSet(fanUseList);
     bar->add_BarSet(ledUseList);
     bar->add_BarSet(pumpUseList);
     bar->add_BarSet(buzzerUseList);
-}
-
-//日志输出接口
-void Management::logread(QString msg)
-{
-    QDateTime time = QDateTime::currentDateTime();   //获取当前时间
-    ui->textBrowser_log->append(time.toString("yyyy-MM-dd hh:mm:ss ")+msg);
 }
 
 //mqtt连接函数
@@ -608,8 +606,9 @@ void Management::connectMQTT()
     mqtt->setCleanSession(true);
     mqtt->setClientId(ui->lineEdit_mqtt_clientID->text());
     mqtt->connectToHost(); //连接mqtt
-    logread("连接mqtt服务器中...");
-    logread("IP地址:" + mqtt_ip + ",端口:" + ui->spinBox_mqtt_port->text() + ",名称:" + ui->lineEdit_mqtt_clientID->text());
+    Common::logread(ui->textBrowser_log,log_level,"连接mqtt服务器中...");
+    QString msg = "IP地址:" + mqtt_ip + ",端口:" + ui->spinBox_mqtt_port->text() + ",名称:" + ui->lineEdit_mqtt_clientID->text();
+    Common::logread(ui->textBrowser_log,log_level,msg);
 
     //连接信号槽
     connect(mqtt, SIGNAL(connected()), this, SLOT(mqtt_connect_info()));
@@ -622,7 +621,7 @@ void Management::mqtt_sub_success(QString topic,quint8 qos) //订阅成功
 {
     QString msg = "订阅主题:";
     msg += topic + " QoS=" + QString::number(qos) + " 成功";
-    logread(msg);
+    Common::logread(ui->textBrowser_log,log_level,msg);
     ui->textBrowser_mqtt_log->append(msg);
 }
 
@@ -644,11 +643,11 @@ int Management::connectSQL()
     db.setPassword(ui->lineEdit_sql_pw->text());
 
     if (db.open()){
-        logread("成功连接MySQL数据库");
+        Common::logread(ui->textBrowser_log,log_level,"成功连接MySQL数据库");
         return true;
     }
     else {
-        logread("MySQL数据库连接失败！");
+        Common::logread(ui->textBrowser_log,log_level,"MySQL数据库连接失败！");
         return false;
     }
 }
@@ -661,7 +660,7 @@ void Management::reflashData()
     } else {
         canPlay++;
     }
-    logread("刷新数据库列表");
+    Common::logread(ui->textBrowser_log,log_level,"刷新数据库列表");
     delete pie;
     pie=new piechart();
     ui->gridLayout_pie->addWidget(pie,0,0,-1,-1,0);
@@ -697,12 +696,12 @@ void Management::reflashData()
             pie->add_PieSeries(iter.key(),iter.value());
             iter++;
         }
-        logread("刷新饼状图");
+        Common::logread(ui->textBrowser_log,log_level,"刷新饼状图");
         pie->updateData();
     }
     else
     {
-        logread("数据库未连接");
+        Common::logread(ui->textBrowser_log,log_level,"数据库未连接");
     }
 }
 
@@ -710,8 +709,7 @@ void Management::reflashData()
 void Management::importData()
 {
     clickSound->play();
-    qDebug() << "import";
-    logread("导入数据库");
+    Common::logread(ui->textBrowser_log,log_level,"导入数据库");
 
     QString fileName = QFileDialog::getOpenFileName(0, "选择文件");
     if (fileName.isEmpty()) {
@@ -721,7 +719,7 @@ void Management::importData()
     QFile file(fileName);
     bool ok = file.open(QIODevice::ReadOnly | QFile::Text);
     if (!ok) {
-        logread("打开导入文件失败！");
+        Common::logread(ui->textBrowser_log,log_level,"打开导入文件失败！");
         return;
     }
 
@@ -729,13 +727,13 @@ void Management::importData()
     QString line = QString::fromUtf8(file.readLine());
     QStringList list = line.split(",");
     if (list.count() != 5) {
-        logread("文件格式错误！");
+        Common::logread(ui->textBrowser_log,log_level,"文件格式错误！");
         return;
     }
 
     //先删除原来的数据
     QString sql = QString("delete from plant_info");
-    logread("源数据库已删除！");
+    Common::logread(ui->textBrowser_log,log_level,"源数据库已删除！");
     QSqlQuery query;
     query.exec(sql);
 
@@ -786,7 +784,7 @@ void Management::importData()
     }
 
     file.close();
-    logread("导入数据库成功！");
+    Common::logread(ui->textBrowser_log,log_level,"导入数据库成功！");
     reflashData();
 }
 
@@ -827,7 +825,7 @@ void Management::outData()
     file.close();
 
     QMessageBox::information(this,"success","导出成功！");
-    logread("导出数据库，文件路径:"+csvFile);
+    Common::logread(ui->textBrowser_log,log_level,"导出数据库，文件路径:"+csvFile);
 }
 
 //添加数据库页面
@@ -845,7 +843,7 @@ void Management::addItem()
 void Management::seachData(QString name)
 {
     clickSound->play();
-    logread("搜素数据库：" + name);
+    Common::logread(ui->textBrowser_log,log_level,"搜素数据库：" + name);
 
     //清除表格再添加数据
     ui->tableWidget->clearContents();
@@ -958,7 +956,7 @@ void Management::on_btn_sql_disconnect_clicked()
     if(db.open())
     {
         db.close();
-        logread("断开mysql数据库");
+        Common::logread(ui->textBrowser_log,log_level,"断开mysql数据库");
     }
 
     //状态图片切换
@@ -1002,7 +1000,7 @@ void Management::on_btn_mqtt_disconnect_clicked()
 void Management::mqtt_connect_info()
 {
     //输出日志
-    logread("成功连接MQTT服务器");
+    Common::logread(ui->textBrowser_log,log_level,"成功连接MQTT服务器");
     ui->textBrowser_mqtt_log->append("成功连接MQTT服务器");
     //状态图片切换
     pix.load(":/img/running.png");
@@ -1036,7 +1034,7 @@ void Management::mqtt_connect_info()
 void Management::mqtt_disconnect_info()
 {
     //输出日志
-    logread("MQTT服务器断开连接");
+    Common::logread(ui->textBrowser_log,log_level,"MQTT服务器断开连接");
     ui->textBrowser_mqtt_log->append("MQTT服务器断开连接");
     //状态图片切换
     pix.load(":/img/stop.png");
@@ -1100,14 +1098,14 @@ void Management::on_btn_mqtt_publish_clicked()
 void Management::on_btn_getStatus_clicked()
 {
     clickSound->play();
-    logread("正在下发采集指令...");
+    Common::logread(ui->textBrowser_log,log_level,"正在下发采集指令...");
     //获取园区状态，下发采集传感器的指令
     QMQTT::Message msg;
     QString str = "{\"deviceID\" : \"all\",\"action\" : \"1\",\"device\" : \"3\"}";
     msg.setTopic(PUBLISH_TOPIC);
     msg.setPayload(str.toLocal8Bit());
     mqtt->publish(msg);
-    logread("采集指令下发成功，等待响应报文...");
+    Common::logread(ui->textBrowser_log,log_level,"采集指令下发成功，等待响应报文...");
 }
 
 //操作排风扇
@@ -1121,7 +1119,7 @@ void Management::setFan(QString deviceID, bool op)
     msg.setPayload(str.toLocal8Bit());
     mqtt->publish(msg);
     if (op == 1) {
-        logread("开启排气扇");
+        Common::logread(ui->textBrowser_log,log_level,"开启排气扇");
         //获取当前月份
         QDate currentDate = QDate::currentDate();
         int currentMonth = currentDate.month();
@@ -1130,7 +1128,7 @@ void Management::setFan(QString deviceID, bool op)
         //图表数值更新
         bar->add_BarSet(fanUseList);
     } else {
-        logread("关闭排气扇");
+        Common::logread(ui->textBrowser_log,log_level,"关闭排气扇");
     }
     ui->textBrowser_mqtt_log->append("发送MQTT数据:" + str);
 }
@@ -1145,7 +1143,7 @@ void Management::setLED(QString deviceID, bool op)
     msg.setPayload(str.toLocal8Bit());
     mqtt->publish(msg);
     if (op == 1) {
-        logread("开启LED");
+        Common::logread(ui->textBrowser_log,log_level,"开启LED");
         //获取当前月份
         QDate currentDate = QDate::currentDate();
         int currentMonth = currentDate.month();
@@ -1154,7 +1152,7 @@ void Management::setLED(QString deviceID, bool op)
         //图表数值更新
         bar->add_BarSet(ledUseList);
     } else {
-        logread("关闭LED");
+        Common::logread(ui->textBrowser_log,log_level,"关闭LED");
     }
     ui->textBrowser_mqtt_log->append("发送MQTT数据:" + str);
 }
@@ -1169,7 +1167,7 @@ void Management::setPump(QString deviceID, bool op)
     msg.setPayload(str.toLocal8Bit());
     mqtt->publish(msg);
     if (op == 1) {
-        logread("开启水泵");
+        Common::logread(ui->textBrowser_log,log_level,"开启水泵");
         //获取当前月份
         QDate currentDate = QDate::currentDate();
         int currentMonth = currentDate.month();
@@ -1178,7 +1176,7 @@ void Management::setPump(QString deviceID, bool op)
         //图表数值更新
         bar->add_BarSet(pumpUseList);
     } else {
-        logread("关闭水泵");
+        Common::logread(ui->textBrowser_log,log_level,"关闭水泵");
     }
     ui->textBrowser_mqtt_log->append("发送MQTT数据:" + str);
 }
@@ -1193,7 +1191,7 @@ void Management::setBuzzer(QString deviceID, bool op)
     msg.setPayload(str.toLocal8Bit());
     mqtt->publish(msg);
     if (op == 1) {
-        logread("开启蜂鸣器");
+        Common::logread(ui->textBrowser_log,log_level,"开启蜂鸣器");
         //获取当前月份
         QDate currentDate = QDate::currentDate();
         int currentMonth = currentDate.month();
@@ -1202,7 +1200,7 @@ void Management::setBuzzer(QString deviceID, bool op)
         //图表数值更新
         bar->add_BarSet(buzzerUseList);
     } else {
-        logread("关闭蜂鸣器");
+        Common::logread(ui->textBrowser_log,log_level,"关闭蜂鸣器");
     }
     ui->textBrowser_mqtt_log->append("发送MQTT数据:" + str);
 }
@@ -1246,7 +1244,7 @@ int Management::Parse_Json(QString msg)
             //加入在线设备表格
             ui->onlineDevice->addItem(deviceID);
             device_ip.insert(deviceID, IP);
-            logread("检测到设备上线！ID：" + deviceID + "，IP地址：" + IP);
+            Common::logread(ui->textBrowser_log,log_level,"检测到设备上线！ID：" + deviceID + "，IP地址：" + IP);
 
             device_bind.insert(deviceID, 0);//默认没有绑定作物
         } else if (msg == "keepLive") {
@@ -1265,18 +1263,21 @@ int Management::Parse_Json(QString msg)
 
             //没有绑定作物园区或者绑定为“无”的
             if (!device_bind.contains(deviceID) || device_bind[deviceID] == 0) {
-                logread("检测到设备" + deviceID + "未绑定作物园区，请前往系统配置页面绑定！");
+                QString msg = "检测到设备" + deviceID + "未绑定作物园区，请前往系统配置页面绑定！";
+                Common::logread(ui->textBrowser_log,log_level,msg);
                 return -1;
             }
 
             int index = device_bind[deviceID];
             QString deviceBind = ui->comboBox_devPlant->itemText(index);
-            logread("收到" + deviceBind + "园区的下位机采集数据，ID号为" + deviceID + "，IP地址" + IP + "，" + device + "传感器,当前数值：" + value);
+            QString msg = "收到" + deviceBind + "园区的下位机采集数据，ID号为" + deviceID + "，IP地址" + IP + "，" + device + "传感器,当前数值：" + value;
+            Common::logread(ui->textBrowser_log,log_level,msg);
 
             if(device.compare("soil") == 0){
                 if (value.toInt() >= ui->spinBox_humidity->text().toInt()) {
                     //土壤干旱
-                    logread("当前土壤干旱！");
+                    Common::logread(ui->textBrowser_log,log_level,"当前土壤干旱！");
+
                     //数据表更新
                     QTableWidgetItem *item = new QTableWidgetItem("缺水");
                     ui->tableWidget->setItem(index - 1, 3, item);
@@ -1318,7 +1319,7 @@ int Management::Parse_Json(QString msg)
                     //数字量模式
                     //环境光照不足
                     if(value.toInt() == 1){
-                        logread("当前环境光照不足！");
+                        Common::logread(ui->textBrowser_log,log_level,"当前环境光照不足！");
                         //数据表更新
                         QTableWidgetItem *item = new QTableWidgetItem("缺光照");
                         ui->tableWidget->setItem(index - 1, 3, item);
@@ -1352,7 +1353,7 @@ int Management::Parse_Json(QString msg)
                             setFan(deviceID, ON);
                             setLED(deviceID, ON);
                             setBuzzer(deviceID, ON);
-                            logread("启用告警系统，开启排风扇！");
+                            Common::logread(ui->textBrowser_log,log_level,"启用告警系统，开启排风扇！");
                         }
                         //弹窗
                         QMessageBox::critical(this,"warnning","检测到可燃气体");
@@ -1383,7 +1384,7 @@ int Management::Parse_Json(QString msg)
                             setFan(deviceID, ON);
                             setLED(deviceID, ON);
                             setBuzzer(deviceID, ON);
-                            logread("启用告警系统，开启排风扇！");
+                            Common::logread(ui->textBrowser_log,log_level,"启用告警系统，开启排风扇！");
                         }
                     } else {
                         //数据表更新
@@ -1435,7 +1436,7 @@ QString Management::getDeviceID(void) {
         if (item != nullptr) {
             deviceID = item->text();
         } else {
-            logread("操作失败，请先选择设备！");
+            Common::logread(ui->textBrowser_log,log_level,"操作失败，请先选择设备！");
             return NULL;
         }
     }
